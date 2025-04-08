@@ -15,6 +15,10 @@
         pre {
             visibility: hidden;
         }
+        #warning-message {
+            color: red;
+            visibility: hidden;
+        }
     </style>
 </head>
 <body>
@@ -41,6 +45,7 @@
             <button id="whois-lookup">Check Availability</button> 
         </div>
         <p><i>Note: XD.BY Domains are only allowed if they abide by our Terms of Service.</i></p>
+        <p id="warning-message">Domain must have .xd.by at the end.</p>
         <pre id="output"></pre>
     </div>
 
@@ -55,66 +60,28 @@
     </footer>
 
     <script>
-        // Get the elements from the DOM
-        const button = document.getElementById("whois-lookup");
-        const domainInput = document.getElementById("domain");
-        const output = document.getElementById("output");
-
-        // Add an event listener to the button
-        button.addEventListener("click", async () => {
-            const domain = domainInput.value.trim();
-
-            if (!domain) {
-                output.textContent = "Please enter a valid domain!";
-                return;
+        document.getElementById('whois-lookup').addEventListener('click', function() {
+            var domainInput = document.getElementById('domain').value;
+            var warningMessage = document.getElementById('warning-message');
+            
+            // Step 1: Remove "http://" or "https://" if present
+            if (domainInput.startsWith("https://")) {
+                domainInput = domainInput.substring(8); // Remove "https://"
+            } else if (domainInput.startsWith("http://")) {
+                domainInput = domainInput.substring(7); // Remove "http://"
             }
 
-            output.textContent = "Fetching WHOIS information...";
+            // Step 2: Check if the domain ends with ".xd.by"
+            if (!domainInput.endsWith(".xd.by")) {
+                // Display warning if domain does not end with ".xd.by"
+                warningMessage.style.visibility = "visible";
+            } else {
+                // Hide warning if domain is valid
+                warningMessage.style.visibility = "hidden";
 
-            try {
-                // Replace with your actual API key here
-                const apiKey = 'zocHLY9gsueBDIIef6RycA';  // Make sure to use the valid API key from jsonwhoisapi.com or your chosen provider
-
-                // Construct the URL for the API request (without API key as query param)
-                const url = `https://jsonwhoisapi.com/api/v1/whois?identifier=${domain}`;
-
-                // Fetch WHOIS info from the API using the API key in the headers
-                const response = await fetch(url, {
-                    method: 'GET',
-                    headers: {
-                        'Authorization': `Bearer ${apiKey}`
-                    }
-                });
-                
-                // Check if the response status is OK
-                if (!response.ok) {
-                    throw new Error(`API Request failed with status: ${response.status}`);
-                }
-
-                // Parse the JSON response
-                const data = await response.json();
-
-                // If the API returns an error
-                if (data.error) {
-                    output.textContent = `Error: ${data.error.message}`;
-                } else {
-                    output.textContent = JSON.stringify(data, null, 2);
-
-                    // Check if domain is registered by looking for the 'domainName' or 'status' fields
-                    const domainStatus = data.domainName || data.status;  // Adjust this based on actual API response
-
-                    if (domainStatus) {
-                        // Domain is registered, redirect to bigboy.com
-                        window.location.href = "https://bigboy.com";
-                    } else {
-                        // Domain is not registered, redirect to kfc.com
-                        window.location.href = "/available";
-                    }
-                }
-            } catch (error) {
-                // Handle errors in fetching or JSON parsing
-                console.error("Error:", error);
-                output.textContent = "Error fetching WHOIS information: " + error.message;
+                // Step 3: Redirect to the desired URL
+                var domainWithoutExtension = domainInput.replace(".xd.by", "");
+                window.location.href = "https://xdby-domains.github.io/register/" + domainWithoutExtension + ".html";
             }
         });
     </script>
