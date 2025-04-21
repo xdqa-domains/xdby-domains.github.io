@@ -42,7 +42,7 @@
         <p>Simply enter the domain name that you want below to see if yours is available.</p>
         <div class="form-container">
             <input type="text" id="domain" placeholder="yourname.xd.gd">
-            <button id="whois-lookup">Check Availability</button> 
+            <button onclick="window.location.href = '/available'">Check Availability</button> 
         </div>
         <p><i>Note: XD.GD Domains are only allowed if they abide by our Terms of Service.</i></p>
         <p id="warning-message">Domain must have .xd.gd at the end.</p>
@@ -58,33 +58,6 @@
         <img src="/xdgd.png" alt="xd.vg Logo" class="footer-logo">
         <p>&copy; 2025 Free Domains For All - XD.GD</p>
     </footer>
-
-    <script>
-        document.getElementById('whois-lookup').addEventListener('click', function() {
-            var domainInput = document.getElementById('domain').value;
-            var warningMessage = document.getElementById('warning-message');
-            
-            // Step 1: Remove "http://" or "https://" if present
-            if (domainInput.startsWith("https://")) {
-                domainInput = domainInput.substring(8); // Remove "https://"
-            } else if (domainInput.startsWith("http://")) {
-                domainInput = domainInput.substring(7); // Remove "http://"
-            }
-
-            // Step 2: Check if the domain ends with ".xd.qa"
-            if (!domainInput.endsWith(".xd.gd")) {
-                // Display warning if domain does not end with ".xd.qa"
-                warningMessage.style.visibility = "visible";
-            } else {
-                // Hide warning if domain is valid
-                warningMessage.style.visibility = "hidden";
-
-                // Step 3: Redirect to the desired URL
-                var domainWithoutExtension = domainInput.replace(".xd.gd", "");
-                window.location.href = "https://xdgd-domains.github.io/register/" + domainWithoutExtension + ".html";
-            }
-        });
-    </script>
 
 </body>
 </html>
