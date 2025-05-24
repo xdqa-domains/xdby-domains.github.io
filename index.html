@@ -1,4 +1,99 @@
-<h1>This website is no longer hosted on Github Pages.</h1>
-<hr>
-<h3>If you still want to visit the website, then <a href="https://xdgd.glitch.me">click here</a>.</h3>
-<h3>If you are Github, please keep xdgd-domains.github.io running.</h3>
+<html lang="en"><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="/style.css">
+    <link rel="icon" href="https://cdn.glitch.global/557a71e1-9a6e-42ae-a9cf-f5e669e5a314/xdgd.png?v=1747789353151">
+    <link rel="favicon" href="https://cdn.glitch.global/557a71e1-9a6e-42ae-a9cf-f5e669e5a314/xdgd.png?v=1747789353151">
+    <title>XD.GD - Free Domains For All</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+    <link href="https://fonts.googleapis.com/css2?family=Geologica:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet">
+    <style>
+        /* CSS to make the <pre> tag content invisible */
+        pre {
+            visibility: hidden;
+        }
+        #warning-message {
+            color: red;
+            visibility: hidden;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <img src="https://cdn.glitch.global/557a71e1-9a6e-42ae-a9cf-f5e669e5a314/xdgd.png?v=1747789353151" alt="xd.gd Logo" class="logo">
+        <nav>
+            <ul>
+                <li><a href="#">Home Page</a></li>
+                <li><a href="/terms-of-service">Terms of Service</a></li>
+                <li><a href="/contact">Contact Information</a></li>
+                <li><a href="/instructions">Instructions</a></li>
+                <li><a href="/blimby.html">Mr. Blimby's Page</a></li>
+                <li><a href="https://xdgd-updates.neocities.org/">XD.GD Updates</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="main-content">
+        <h1>XD.GD- Free Domains For All</h1>
+        <p>Get your free domain and start building your online presence today.</p>
+        <p>Simply enter the domain name that you want below to see if yours is available.</p>
+        <div class="form-container">
+            <input type="text" id="xdgd-free-domains" placeholder="yourname.xd.gd">
+
+            <div style="margin: 10px 0;">
+                <input type="checkbox" id="tos-checkbox">
+                <label for="tos-checkbox">I agree to the <a href="/terms-of-service" target="_blank">Terms of Service</a></label>
+            </div>
+
+            <button id="check-btn" disabled="">Check Availability</button>
+        </div>
+        <p><i>Note: XD.GD Domains are only allowed if they abide by our Terms of Service.</i></p>
+        <p id="warning-message">Domain must have .xd.gd at the end.</p>
+        <pre id="output"></pre>
+    </div>
+
+    <div class="backstory">
+        <h2>Why I made XD.GD</h2>
+        <p>Here, I believe that people should have completely free domains, no matter what it takes for me. So I made the XD.GD website so that people can have free domains easily.</p>
+    </div>
+
+    <footer>
+        <img src="https://cdn.glitch.global/557a71e1-9a6e-42ae-a9cf-f5e669e5a314/xdgd.png?v=1747789353151" alt="xd.gd Logo" class="footer-logo">
+        <p>© 2025 Free Domains For All - XD.GD</p>
+    </footer>
+
+    <script>
+        const domainInput = document.getElementById('xdgd-free-domains');
+        const tosCheckbox = document.getElementById('tos-checkbox');
+        const checkBtn = document.getElementById('check-btn');
+        const warningMessage = document.getElementById('warning-message');
+
+        // Enable/disable button based on ToS checkbox
+        tosCheckbox.addEventListener('change', () => {
+            checkBtn.disabled = !tosCheckbox.checked;
+        });
+
+        checkBtn.addEventListener('click', () => {
+            const domain = domainInput.value.trim();
+
+            // Check if domain ends with '.xd.gd'
+            if (!domain.endsWith('.xd.gd')) {
+                warningMessage.style.visibility = 'visible';
+                return;
+            } else {
+                warningMessage.style.visibility = 'hidden';
+            }
+
+            if (!tosCheckbox.checked) {
+                alert('You must agree to the Terms of Service if you want to register an XD.GD domain name.');
+                return;
+            }
+
+            // Redirect or perform availability check
+            window.location.href = '/available?domain=' + encodeURIComponent(domain);
+        });
+    </script>
+
+
+</body></html>
